@@ -1,20 +1,44 @@
 import os
-from flask import Flask,render_template,request
+import tornado.ioloop
+import tornado.web
+import tornado.template
+import tornado.websocket
 
-app = Flask(__name__)
+clients = dict()
+
+class IndexHandler(tornado.web.RequestHandler):
+	@tornado.web.asynchronous
+	def get(self):
+		loader = tornado.template.Loader("templates/")
+		self.write(loader.load("index.html").generate())
+		self.finish()
+
+class WebSocketHandler(tornado.websocket.WebSocketHandler):
+	def open(self, *args):
+		self.id = self.get_argument("Id")
+		self.stream.set_nodelay(True)
+		clients[self.id] = {"id":self.id, "object": self}
+
+	def on_message(self, message):
+		print "Client %s received a message: %s" % (self.id, message)
+
+	def on_close(self):
+		if self.id in clients:
+			del clients[self.id]
+
+app = tornado.web.Application([
+	(r'/static/(.*)', tornado.web.StaticFileHandler, {'path': 'static/'}),
+	(r'/', IndexHandler),
+	(r'/socket', WebSocketHandler),
+])
 
 port = os.getenv('VCAP_APP_PORT', '5000')
 
-@app.route("/")
-def index():
-	return render_template('index.html')
-
-@app.route("/sayHello", methods=['POST', 'GET'])
-def sayHello():
-	if request.method == 'GET':
-		return "Hello " + request.args.get('Name', '')
-	else:
-		return "Hello " + request.form['Name']
-
 if __name__ == "__main__":
-	app.run(host='0.0.0.0', port=int(port))
+	app.listen(int(port))
+	print("Server running on port: %s" % port)
+	try:
+		tornado.ioloop.IOLoop.instance().start()
+	except KeyboardInterrupt:
+		print("Shutting down webserver")
+		tornado.ioloop.IOLoop.instance().stop()
