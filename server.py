@@ -19,6 +19,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
 
 	def on_message(self, message):
 		print ("Received message: %s" % message)
+		self.write_message("The message received was - " + message)
 
 	def on_close(self):
 		pass
