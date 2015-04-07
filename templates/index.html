@@ -9,7 +9,8 @@
 <body>
 <div id="content">
     <div id="output">
-	Output goes here>>
+	PolyBlue Web Console<br />
+	Version 1.0>><br />
     </div>
     <input type="textbox" id="input" value="Enter Your Input Here" />
 </div>
@@ -22,7 +23,7 @@ $(document).ready(function() {
 		$("#input").val('>>');
 	});
 
-	var ws = new WebSocket("ws://localhost:5000/socket?Id=123");
+	var ws = new WebSocket("ws://localhost:{{ app_port }}/socket");
 	ws.onopen = function(){
 		ws.send("Message to send");
 	}
