@@ -23,7 +23,11 @@ $(document).ready(function() {
 		$("#input").val('>>');
 	});
 
-	var ws = new WebSocket("ws://" + window.location.hostname + ":{{ app_port }}/socket");
+	{% if app_port=='5000' %}
+	var ws = new WebSocket("ws://" + window.location.hostname + ":5000/socket");
+	{% else %}
+	var ws = new WebSocket("ws://" + window.location.hostname + "/socket");
+	{% end %}
 	ws.onopen = function(){
 		ws.send("Socket connection open from browser");
 	}
