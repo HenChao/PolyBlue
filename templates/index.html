@@ -25,14 +25,22 @@ $(document).ready(function() {
 
 	var ws = new WebSocket("ws://" + window.location.hostname + ":{{ app_port }}/socket");
 	ws.onopen = function(){
-		ws.send("Message to send");
+		ws.send("Socket connection open from browser");
 	}
 	ws.onmessage = function (evt) {
-		var received_msg = evt.data;
+		$("#output").append(evt.data + "<br />");
 	}
 	ws.onclose = function() {
-
+		ws.send("Closing socket connection");
 	}
+
+	$("#input").keypress(function(e) {
+		if(e.which == 13){
+			ws.send($("#input").val());
+			$("#output").append(">> " + $("#input").val() + "<br />");
+			$("#input").val('');
+		}
+	});
 });
 </script>
 </body>
