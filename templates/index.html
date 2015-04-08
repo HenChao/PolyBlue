@@ -1,45 +1,40 @@
 <!doctype html>
 <head>
     <title>PolyBlue</title>
-    <link rel="stylesheet" type="text/css" href="/static/main.css">
-    <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/static/jquery.css">
     <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="/static/jquery.terminal-0.8.8.min.js"></script>
 </head>
 
-<body>
+<body style="background: BLACK;">
 <div id="content">
-    <div id="output">
-	PolyBlue Web Console<br />
-	Version 1.0>><br />
-    </div>
-    <input type="textbox" id="input" value="Enter Your Input Here" />
 </div>
 <script>
+
 $(document).ready(function() {
-	$("#input").click(function (){
-		$("#input").val('');
-	});
-	$("#input").blur(function (){
-		$("#input").val('>>');
+	var ws = new WebSocket("ws://" + window.location.hostname + "/socket?Id=1");
+
+	var terminal;
+	$('#content').terminal(function(command, term){
+		terminal = term;
+		if (command !== ''){
+			ws.send(command);
+		} else {
+			term.echo('');
+		}
+	}, {
+		greetings: 'PolyBlue Terminal -+- v1.0',
+		prompt: '>>'
 	});
 
-	var ws = new WebSocket("ws://" + window.location.hostname + "/socket?Id=1");
 	ws.onopen = function(){
 	}
 	ws.onmessage = function (evt) {
-		$("#output").append(evt.data + "<br />");
+		terminal.echo(evt.data);
 	}
 	ws.onclose = function() {
 		ws.send("Closing socket connection");
 	}
-
-	$("#input").keypress(function(e) {
-		if(e.which == 13){
-			ws.send($("#input").val());
-			$("#output").append(">> " + $("#input").val() + "<br />");
-			$("#input").val('');
-		}
-	});
 });
 </script>
 </body>
