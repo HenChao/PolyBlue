@@ -16,7 +16,7 @@ Simple BlueMix application and framework to execute local command line python ap
   * Take a look at the first line in the [example.py](https://github.com/HenChao/PolyBlue/blob/master/example.py) file for the recommended way to import the class
 
 4. Write the code to send messages and receive inputs from the web site!
-  * Take a look at the example.py](https://github.com/HenChao/PolyBlue/blob/master/example.py) file to get an idea of how to use the PolyBlueClient class
+  * Take a look at the [example.py](https://github.com/HenChao/PolyBlue/blob/master/example.py) file to get an idea of how to use the PolyBlueClient class
 
 ## Note: Running your application
 
