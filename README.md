@@ -21,6 +21,7 @@ Simple BlueMix application and framework to execute local command line python ap
 ## Note: Running your application
 
 When you are ready to run your application, please be sure that everything is ready in the following order:
+
 1. The server code is running on BlueMix
 2. You have a web browser open to your BlueMix application
 
