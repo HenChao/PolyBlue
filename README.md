@@ -4,7 +4,13 @@ Simple BlueMix application and framework to execute local command line python ap
 
 [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/HenChao/TriviaREST)
 
+## Requirements
+
+Your local environment will need the websocket-client module installed in order to run the PolyBlueClient library. See the [package page](https://pypi.python.org/pypi/websocket-client/) for installation instructions.
+
 ## How to use
+0. Install the websocket-client module
+  * Very important step! See the Requirements section above.
 
 1. Deploy the server code onto BlueMix
   * You can either use the Deploy to Bluemix button above, or manually push the code onto Bluemix from your local environment, but the code is ready to go as-is
