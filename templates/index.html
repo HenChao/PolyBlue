@@ -23,7 +23,7 @@ $(document).ready(function() {
 		$("#input").val('>>');
 	});
 
-	var ws = new WebSocket("ws://" + window.location.hostname + ":5000/socket?Id=1");
+	var ws = new WebSocket("ws://" + window.location.hostname + "/socket?Id=1");
 	ws.onopen = function(){
 	}
 	ws.onmessage = function (evt) {
