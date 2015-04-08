@@ -23,13 +23,8 @@ $(document).ready(function() {
 		$("#input").val('>>');
 	});
 
-	{% if app_port=='5000' %}
-	var ws = new WebSocket("ws://" + window.location.hostname + ":5000/socket");
-	{% else %}
-	var ws = new WebSocket("ws://" + window.location.hostname + "/socket");
-	{% end %}
+	var ws = new WebSocket("ws://" + window.location.hostname + ":5000/socket?Id=1");
 	ws.onopen = function(){
-		ws.send("Socket connection open from browser");
 	}
 	ws.onmessage = function (evt) {
 		$("#output").append(evt.data + "<br />");
