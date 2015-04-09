@@ -2,7 +2,7 @@
 
 Simple BlueMix application and framework to execute local command line python applications through a web portal.
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/HenChao/TriviaREST)
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/HenChao/PolyBlue)
 
 ## Requirements
 
